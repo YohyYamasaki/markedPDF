@@ -1,0 +1,86 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@200;400;600;700&display=swap');
+
+
+body {
+  overflow: hidden;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.table {
+  width: initial;
+}
+
+/* easyMDE */
+.icon-latex {
+  width: 30px;
+  height: 30px;
+  padding: 0 !important;
+}
+
+.icon-block-math::before {
+  content: "";
+  display: inline-block;
+  position: relative;
+  top: 4px;
+  width: 20px;
+  height: 20px;
+  background-image: url("assets/icons/block-math.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.icon-inline-math::before {
+  content: "";
+  display: inline-block;
+  position: relative;
+  top: 4px;
+  width: 20px;
+  height: 20px;
+  background-image: url("assets/icons/inline-math.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.icon-page-break::before {
+  content: "";
+  display: inline-block;
+  position: relative;
+  top: 4px;
+  width: 20px;
+  height: 20px;
+  background-image: url("assets/icons/page-break.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.EasyMDEContainer .CodeMirror {
+  height: calc(100vh - 200px);
+}
+
+.CodeMirror-scroll {
+  height: calc(100vh - 280px) !important;
+  scrollbar-width: none;
+}
+
+.CodeMirror {
+  font-family: 'Noto Sans JP', sans-serif !important;
+}
+
+.CodeMirror .cm-formatting-code-block,
+.CodeMirror .cm-comment {
+  font-family: 'Noto Sans Mono', "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courie !important;
+}
+
+.CodeMirror-scroll::-webkit-scrollbar {
+  display: none;
+}
