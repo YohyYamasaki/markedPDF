@@ -30,6 +30,20 @@
   min-height: 90vh;
 }
 
+.katex-display > .katex {
+  display: inline-block;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow-x: scroll;
+  text-align: initial;
+}
+.katex {
+  font: normal 1.21em KaTeX_Main, Times New Roman, serif;
+  line-height: 1.2;
+  white-space: normal;
+  text-indent: 0;
+}
+
 /* /////////////////////////  notion-style  /////////////////////////// */
 
 .notion-style.markdown-body *,
@@ -308,6 +322,7 @@
   max-width: 676px;
   width: 100%;
   background: rgb(247, 246, 243) none repeat scroll 0% 0%;
+  overflow: auto;
 }
 
 .notion-style.markdown-body pre code {
@@ -316,6 +331,7 @@
   font-size: 100%;
   color: #24292f;
   line-height: 1.3rem;
+  overflow-wrap: visible;
 }
 
 .notion-style.markdown-body a {
@@ -1112,6 +1128,7 @@
   word-wrap: normal;
   background-color: transparent;
   border: 0;
+  
 }
 .github-style.markdown-body .csv-data td,
 .github-style.markdown-body .csv-data th {

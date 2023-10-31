@@ -12,4 +12,4 @@ A guest user still can use this app without registering, but with a signed-in us
 2. Edit your markdown document in the left pane.
 3. Choose a style from the “Style Selector” button.
 4. Click “Convert to PDF” to convert your document.
-5. Download your PDF by using the browser’s default download button (Chrome is recommended).
+5. Download your PDF by using the browser’s default download button (Chrome is recommended).o
