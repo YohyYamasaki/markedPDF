@@ -43,10 +43,10 @@ export function Navbar (): JSX.Element {
 
         <div>
           <NavLink
-            className="btn btn-ghost btn-sm normal-case text-xl text-white"
+            className="btn btn-ghost btn-sm normal-case mr-16 text-xl text-white"
             to="/"
           >
-            <img className='w-10 hidden md:inline' src="/src/markedPDF/icons/icon.png" alt="markedPDF"/>
+            <img className='w-10' src="/src/markedPDF/icons/icon.png" alt="markedPDF"/>
             <span className='hidden lg:inline'>markedPDF(beta)</span>
           </NavLink>
         </div>
