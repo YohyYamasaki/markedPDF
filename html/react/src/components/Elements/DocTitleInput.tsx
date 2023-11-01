@@ -38,7 +38,7 @@ export function DocTitleInput (): JSX.Element {
       type="text"
       placeholder="Document Title"
       value={markdownDoc.title}
-      className="input input-sm w-full max-w-4xl mx-auto ml-32 bg-neutral-focus focus:border-neutral-content text-neutral-content font-bold text-base"
+      className="input input-sm w-full max-w-4xl mx-auto mr-16 md:mr-8 bg-neutral-focus focus:border-neutral-content text-neutral-content font-bold text-base"
       onChange={handleTitleChange}
     />
   )
