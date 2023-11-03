@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches:
+    branches-ignore:
       - main
   pull_request:
     branches:
@@ -55,7 +55,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true || github.ref == 'refs/heads/main'
+    if: github.event.pull_request.merged == true
     needs: laravel-tests  # Only proceed if Laravel tests succeed
     steps:
     - name: deploy

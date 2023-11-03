@@ -17,6 +17,7 @@ import "react-sliding-pane/dist/react-sliding-pane.css";
 import {PdfView} from "@/components/Elements/PdfView";
 import {PiCaretDoubleLeftBold} from "react-icons/pi";
 
+
 export function MainPage(): JSX.Element {
   const setIsDragOver = useSetRecoilState<boolean>(isDragOverState);
   const isEditMode = useRecoilValue<boolean>(isEditModeState);
