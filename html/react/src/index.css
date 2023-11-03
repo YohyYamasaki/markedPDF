@@ -84,3 +84,13 @@ body {
 .CodeMirror-scroll::-webkit-scrollbar {
   display: none;
 }
+
+/* slider */
+
+.slide-pane__header {
+  background-color: #edf2f7;
+}
+
+.slide-pane__content {
+  padding: 0;
+}

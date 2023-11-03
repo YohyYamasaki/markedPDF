@@ -53,23 +53,6 @@ export function HtmlView ({ isShow = false }: { isShow: boolean }): JSX.Element 
     }
   }, [debouncedMarkdownDoc, style])
 
-  // set markdown css and page break css
-  useEffect(() => {
-    const url = process.env.REACT_APP_ENV_URL ?? 'default_url'
-    if (url != null) {
-      // set markdown css
-      const mdCssLink = document.createElement('link')
-      mdCssLink.rel = 'stylesheet'
-      mdCssLink.href = `${url}/src/markedPDF/styles/markdown.css`
-      document.head.appendChild(mdCssLink)
-      // set pagebreak css
-      const pageBreakCssLink = document.createElement('link')
-      pageBreakCssLink.rel = 'stylesheet'
-      pageBreakCssLink.href = `${url}/src/markedPDF/styles/page-break.css`
-      document.head.appendChild(pageBreakCssLink)
-    }
-  }, [])
-
   // Create an instance of the parser
   const parser = HtmlToReactParser()
 

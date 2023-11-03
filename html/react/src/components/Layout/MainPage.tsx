@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Navbar } from '@/components/Elements/Navbar'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { isDragOverState, isEditModeState } from '@/recoil/recoilStates'
@@ -13,6 +13,9 @@ import { ToggleViewButton } from '@/components/Elements/buttons/ToggleViewButton
 import SEO from '@/components/Elements/SEO'
 import { useGetDocSummaryList } from '@/hooks/document/useGetDocSummaryList'
 import { useGetUser } from '@/hooks/auth/useGetUser'
+import SlidingPane from 'react-sliding-pane'
+import 'react-sliding-pane/dist/react-sliding-pane.css'
+import { NewPdfView } from '../Elements/NewPdfView'
 
 export function MainPage (): JSX.Element {
   const setIsDragOver = useSetRecoilState<boolean>(isDragOverState)
@@ -20,6 +23,9 @@ export function MainPage (): JSX.Element {
   const checkAuth = useCheckAuth()
   const getUser = useGetUser()
   const getDocSummaryList = useGetDocSummaryList()
+  const [slidingState, setSlidingState] = useState({
+    isPaneOpen: false
+  })
 
   // initialize application
   useEffect(() => {
@@ -30,6 +36,21 @@ export function MainPage (): JSX.Element {
       await getDocSummaryList(true)
     }
     void fetchData()
+
+    // set markdown css
+    const url = process.env.REACT_APP_ENV_URL ?? 'default_url'
+    if (url != null) {
+      // set markdown css
+      const mdCssLink = document.createElement('link')
+      mdCssLink.rel = 'stylesheet'
+      mdCssLink.href = `${url}/src/markedPDF/styles/markdown.css`
+      document.head.appendChild(mdCssLink)
+      // set pagebreak css
+      const pageBreakCssLink = document.createElement('link')
+      pageBreakCssLink.rel = 'stylesheet'
+      pageBreakCssLink.href = `${url}/src/markedPDF/styles/page-break.css`
+      document.head.appendChild(pageBreakCssLink)
+    }
   }, [])
 
   function handleDragOver (e: React.DragEvent<HTMLDivElement>): void {
@@ -64,13 +85,16 @@ export function MainPage (): JSX.Element {
         <Navbar />
         <div className="flex flex-grow overflow-scroll no-scrollbar">
           {/* Left Pane */}
-          <div className="flex-shrink-0 w-1/2 overflow-hidden py-1 border-r border-neutral-content bg-neutral-content">
+          <div className="flex-shrink-0 w-full sm:w-1/2 overflow-hidden py-1 border-r border-neutral-content bg-neutral-content">
             <ImageSelector />
+            <button
+            onClick={() => { setSlidingState({ isPaneOpen: true }) }}
+            >open pane</button>
             <SimpleMarkdownEditor />
           </div>
 
           {/* Right Pane */}
-          <div className="flex-shrink-0 w-1/2 overflow-y-auto">
+          <div className="hidden sm:block flex-shrink-0 w-1/2 overflow-y-auto">
             <div className="absolute w-1/2 flex-shrink-0 flex flex-wrap pt-1 bg-neutral-content z-[1]">
               <ToggleViewButton />
               <ShowStyleSelectButton />
@@ -79,8 +103,29 @@ export function MainPage (): JSX.Element {
               </div>
             </div>
             <HtmlView isShow={isEditMode} />
-            <PdfView isShow={!isEditMode} />
+            {/* <PdfView isShow={!isEditMode} /> */}
+            <NewPdfView isShow={!isEditMode} />
           </div>
+
+          <SlidingPane
+            className="mt-12 sm:hidden"
+            overlayClassName="some-custom-overlay-class"
+            isOpen={slidingState.isPaneOpen}
+            onRequestClose={() => {
+              setSlidingState({ isPaneOpen: false })
+            }}
+            width='100%'
+          >
+            <div className="fixed top-0 right-0 w-4/5 flex-shrink-0 flex flex-wrap pt-1 bg-neutral-content z-[1]">
+              <ToggleViewButton />
+              {/* <ShowStyleSelectButton /> */}
+              <div className="ml-auto mx-1 mb-1">
+                <ConverToPdfButton />
+              </div>
+            </div>
+            <HtmlView isShow={isEditMode} />
+            <PdfView isShow={!isEditMode} />
+          </SlidingPane>
         </div>
       </div>
     </>
