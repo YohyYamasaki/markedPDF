@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ["standard-with-typescript", "plugin:react/recommended"],
+  extends: ["standard-with-typescript", "plugin:react/recommended", "prettier"],
   overrides: [
     {
       env: {
@@ -18,17 +18,17 @@ module.exports = {
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
-    parser: '@typescript-eslint/parser',
-    project: './tsconfig.eslint.json',
+    parser: "@typescript-eslint/parser",
+    project: "./tsconfig.eslint.json",
     tsconfigRootDir: __dirname,
   },
   plugins: ["react", "react-hooks", "@typescript-eslint", "import"],
   rules: {"react/react-in-jsx-scope": "off"},
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
+  settings: {
+    react: {
+      version: "detect",
+    },
   },
-  root:true,
-  ignorePatterns: [".eslintrc.cjs", "vite.config.ts"]
+  root: true,
+  ignorePatterns: [".eslintrc.cjs", "vite.config.ts"],
 };

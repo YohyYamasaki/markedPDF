@@ -1,50 +1,50 @@
-import { useEffect } from 'react'
-import { Navbar } from '@/components/Elements/Navbar'
-import { useRecoilValue, useSetRecoilState } from 'recoil'
-import { isDragOverState, isEditModeState } from '@/recoil/recoilStates'
-import { PdfView } from '@/components/Elements/PdfView'
-import { SimpleMarkdownEditor } from '../Elements/SimpleMarkdownEditor'
-import { HtmlView } from '@/components/Elements/HtmlView'
-import { ImageSelector } from '@/components/Elements/ImageSelector'
-import { useCheckAuth } from '@/hooks/auth/useCheckAuth'
-import { ConverToPdfButton } from '@/components/Elements/buttons/ConvertToPdfButton'
-import { ShowStyleSelectButton } from '@/components/Elements/buttons/ShowStyleSelectButton'
-import { ToggleViewButton } from '@/components/Elements/buttons/ToggleViewButton'
-import SEO from '@/components/Elements/SEO'
-import { useGetDocSummaryList } from '@/hooks/document/useGetDocSummaryList'
-import { useGetUser } from '@/hooks/auth/useGetUser'
+import {useEffect} from "react";
+import {Navbar} from "@/components/Elements/Navbar";
+import {useRecoilValue, useSetRecoilState} from "recoil";
+import {isDragOverState, isEditModeState} from "@/recoil/recoilStates";
+import {PdfView} from "@/components/Elements/PdfView";
+import {SimpleMarkdownEditor} from "../Elements/SimpleMarkdownEditor";
+import {HtmlView} from "@/components/Elements/HtmlView";
+import {ImageSelector} from "@/components/Elements/ImageSelector";
+import {useCheckAuth} from "@/hooks/auth/useCheckAuth";
+import {ConverToPdfButton} from "@/components/Elements/buttons/ConvertToPdfButton";
+import {ShowStyleSelectButton} from "@/components/Elements/buttons/ShowStyleSelectButton";
+import {ToggleViewButton} from "@/components/Elements/buttons/ToggleViewButton";
+import SEO from "@/components/Elements/SEO";
+import {useGetDocSummaryList} from "@/hooks/document/useGetDocSummaryList";
+import {useGetUser} from "@/hooks/auth/useGetUser";
 
-export function MainPage (): JSX.Element {
-  const setIsDragOver = useSetRecoilState<boolean>(isDragOverState)
-  const isEditMode = useRecoilValue<boolean>(isEditModeState)
-  const checkAuth = useCheckAuth()
-  const getUser = useGetUser()
-  const getDocSummaryList = useGetDocSummaryList()
+export function MainPage(): JSX.Element {
+  const setIsDragOver = useSetRecoilState<boolean>(isDragOverState);
+  const isEditMode = useRecoilValue<boolean>(isEditModeState);
+  const checkAuth = useCheckAuth();
+  const getUser = useGetUser();
+  const getDocSummaryList = useGetDocSummaryList();
 
   // initialize application
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
-      const isLoggedIn: boolean = await checkAuth()
-      if (!isLoggedIn) return
-      await getUser()
-      await getDocSummaryList(true)
-    }
-    void fetchData()
-  }, [])
+      const isLoggedIn: boolean = await checkAuth();
+      if (!isLoggedIn) return;
+      await getUser();
+      await getDocSummaryList(true);
+    };
+    void fetchData();
+  }, []);
 
-  function handleDragOver (e: React.DragEvent<HTMLDivElement>): void {
-    e.preventDefault()
-    setIsDragOver(true)
+  function handleDragOver(e: React.DragEvent<HTMLDivElement>): void {
+    e.preventDefault();
+    setIsDragOver(true);
   }
 
-  function handleDragLeave (e: React.DragEvent<HTMLDivElement>): void {
-    e.preventDefault()
-    setIsDragOver(false)
+  function handleDragLeave(e: React.DragEvent<HTMLDivElement>): void {
+    e.preventDefault();
+    setIsDragOver(false);
   }
 
-  function handleDrop (e: React.DragEvent<HTMLDivElement>): void {
-    e.preventDefault()
-    setIsDragOver(false)
+  function handleDrop(e: React.DragEvent<HTMLDivElement>): void {
+    e.preventDefault();
+    setIsDragOver(false);
   }
 
   return (
@@ -84,5 +84,5 @@ export function MainPage (): JSX.Element {
         </div>
       </div>
     </>
-  )
+  );
 }
