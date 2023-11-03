@@ -70,6 +70,6 @@ jobs:
           git pull origin main
           docker exec apache bash -c "cd laravel && composer install --no-dev"
           docker exec apache bash -c "cd react && npm install"
-          docker exec apache bash -c "cd react && npm run build"
+          docker exec apache bash -c "cd react && NODE_OPTIONS="--max-old-space-size=1024" npm run build"
           cd puppeteer && npm install
           pm2 restart pdf-converter
