@@ -1,71 +1,71 @@
-import { useEffect, useState } from 'react'
-import { Navbar } from '@/components/Elements/Navbar'
-import { useRecoilValue, useSetRecoilState } from 'recoil'
-import { isDragOverState, isEditModeState } from '@/recoil/recoilStates'
-import { PdfView } from '@/components/Elements/PdfView'
-import { SimpleMarkdownEditor } from '../Elements/SimpleMarkdownEditor'
-import { HtmlView } from '@/components/Elements/HtmlView'
-import { ImageSelector } from '@/components/Elements/ImageSelector'
-import { useCheckAuth } from '@/hooks/auth/useCheckAuth'
-import { ConverToPdfButton } from '@/components/Elements/buttons/ConvertToPdfButton'
-import { ShowStyleSelectButton } from '@/components/Elements/buttons/ShowStyleSelectButton'
-import { ToggleViewButton } from '@/components/Elements/buttons/ToggleViewButton'
-import SEO from '@/components/Elements/SEO'
-import { useGetDocSummaryList } from '@/hooks/document/useGetDocSummaryList'
-import { useGetUser } from '@/hooks/auth/useGetUser'
-import SlidingPane from 'react-sliding-pane'
-import 'react-sliding-pane/dist/react-sliding-pane.css'
-import { NewPdfView } from '../Elements/NewPdfView'
+import {useEffect, useState} from "react";
+import {Navbar} from "@/components/Elements/Navbar";
+import {useRecoilValue, useSetRecoilState} from "recoil";
+import {isDragOverState, isEditModeState} from "@/recoil/recoilStates";
+import {PdfView} from "@/components/Elements/PdfView";
+import {SimpleMarkdownEditor} from "../Elements/SimpleMarkdownEditor";
+import {HtmlView} from "@/components/Elements/HtmlView";
+import {ImageSelector} from "@/components/Elements/ImageSelector";
+import {useCheckAuth} from "@/hooks/auth/useCheckAuth";
+import {ConverToPdfButton} from "@/components/Elements/buttons/ConvertToPdfButton";
+import {ShowStyleSelectButton} from "@/components/Elements/buttons/ShowStyleSelectButton";
+import {ToggleViewButton} from "@/components/Elements/buttons/ToggleViewButton";
+import SEO from "@/components/Elements/SEO";
+import {useGetDocSummaryList} from "@/hooks/document/useGetDocSummaryList";
+import {useGetUser} from "@/hooks/auth/useGetUser";
+import SlidingPane from "react-sliding-pane";
+import "react-sliding-pane/dist/react-sliding-pane.css";
+import {NewPdfView} from "../Elements/NewPdfView";
 
-export function MainPage (): JSX.Element {
-  const setIsDragOver = useSetRecoilState<boolean>(isDragOverState)
-  const isEditMode = useRecoilValue<boolean>(isEditModeState)
-  const checkAuth = useCheckAuth()
-  const getUser = useGetUser()
-  const getDocSummaryList = useGetDocSummaryList()
+export function MainPage(): JSX.Element {
+  const setIsDragOver = useSetRecoilState<boolean>(isDragOverState);
+  const isEditMode = useRecoilValue<boolean>(isEditModeState);
+  const checkAuth = useCheckAuth();
+  const getUser = useGetUser();
+  const getDocSummaryList = useGetDocSummaryList();
   const [slidingState, setSlidingState] = useState({
-    isPaneOpen: false
-  })
+    isPaneOpen: false,
+  });
 
   // initialize application
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
-      const isLoggedIn: boolean = await checkAuth()
-      if (!isLoggedIn) return
-      await getUser()
-      await getDocSummaryList(true)
-    }
-    void fetchData()
+      const isLoggedIn: boolean = await checkAuth();
+      if (!isLoggedIn) return;
+      await getUser();
+      await getDocSummaryList(true);
+    };
+    void fetchData();
 
     // set markdown css
-    const url = process.env.REACT_APP_ENV_URL ?? 'default_url'
+    const url = process.env.REACT_APP_ENV_URL ?? "default_url";
     if (url != null) {
       // set markdown css
-      const mdCssLink = document.createElement('link')
-      mdCssLink.rel = 'stylesheet'
-      mdCssLink.href = `${url}/src/markedPDF/styles/markdown.css`
-      document.head.appendChild(mdCssLink)
+      const mdCssLink = document.createElement("link");
+      mdCssLink.rel = "stylesheet";
+      mdCssLink.href = `${url}/src/markedPDF/styles/markdown.css`;
+      document.head.appendChild(mdCssLink);
       // set pagebreak css
-      const pageBreakCssLink = document.createElement('link')
-      pageBreakCssLink.rel = 'stylesheet'
-      pageBreakCssLink.href = `${url}/src/markedPDF/styles/page-break.css`
-      document.head.appendChild(pageBreakCssLink)
+      const pageBreakCssLink = document.createElement("link");
+      pageBreakCssLink.rel = "stylesheet";
+      pageBreakCssLink.href = `${url}/src/markedPDF/styles/page-break.css`;
+      document.head.appendChild(pageBreakCssLink);
     }
-  }, [])
+  }, []);
 
-  function handleDragOver (e: React.DragEvent<HTMLDivElement>): void {
-    e.preventDefault()
-    setIsDragOver(true)
+  function handleDragOver(e: React.DragEvent<HTMLDivElement>): void {
+    e.preventDefault();
+    setIsDragOver(true);
   }
 
-  function handleDragLeave (e: React.DragEvent<HTMLDivElement>): void {
-    e.preventDefault()
-    setIsDragOver(false)
+  function handleDragLeave(e: React.DragEvent<HTMLDivElement>): void {
+    e.preventDefault();
+    setIsDragOver(false);
   }
 
-  function handleDrop (e: React.DragEvent<HTMLDivElement>): void {
-    e.preventDefault()
-    setIsDragOver(false)
+  function handleDrop(e: React.DragEvent<HTMLDivElement>): void {
+    e.preventDefault();
+    setIsDragOver(false);
   }
 
   return (
@@ -88,8 +88,12 @@ export function MainPage (): JSX.Element {
           <div className="flex-shrink-0 w-full sm:w-1/2 overflow-hidden py-1 border-r border-neutral-content bg-neutral-content">
             <ImageSelector />
             <button
-            onClick={() => { setSlidingState({ isPaneOpen: true }) }}
-            >open pane</button>
+              onClick={() => {
+                setSlidingState({isPaneOpen: true});
+              }}
+            >
+              open pane
+            </button>
             <SimpleMarkdownEditor />
           </div>
 
@@ -112,9 +116,9 @@ export function MainPage (): JSX.Element {
             overlayClassName="some-custom-overlay-class"
             isOpen={slidingState.isPaneOpen}
             onRequestClose={() => {
-              setSlidingState({ isPaneOpen: false })
+              setSlidingState({isPaneOpen: false});
             }}
-            width='100%'
+            width="100%"
           >
             <div className="fixed top-0 right-0 w-4/5 flex-shrink-0 flex flex-wrap pt-1 bg-neutral-content z-[1]">
               <ToggleViewButton />
@@ -129,5 +133,5 @@ export function MainPage (): JSX.Element {
         </div>
       </div>
     </>
-  )
+  );
 }
