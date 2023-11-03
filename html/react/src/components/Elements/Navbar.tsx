@@ -62,7 +62,7 @@ export function Navbar(): JSX.Element {
 
         {/* right buttons */}
         <BrowserView>
-          <div className="flex-none space-x-1 ml-auto">
+          <div className="flex-none flex justify-end items-center w-fit space-x-1 ml-auto">
             {/* Switch logout / login button */}
             {isLoggedIn ? (
               <button

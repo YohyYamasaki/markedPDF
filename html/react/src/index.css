@@ -77,7 +77,7 @@ body {
 }
 
 .EasyMDEContainer .CodeMirror {
-  height: calc(100dvh - 200px);
+  height: calc(100dvh - 205px);
 }
 
 .CodeMirror-scroll {
@@ -104,6 +104,9 @@ body {
 }
 
 /* slider */
+.slide-pane__close{
+  margin-left: 0;
+}
 
 .slide-pane__header {
   background-color: #edf2f7;

@@ -17,7 +17,6 @@ import "react-sliding-pane/dist/react-sliding-pane.css";
 import {PdfView} from "@/components/Elements/PdfView";
 import {PiCaretDoubleLeftBold} from "react-icons/pi";
 
-
 export function MainPage(): JSX.Element {
   const setIsDragOver = useSetRecoilState<boolean>(isDragOverState);
   const isEditMode = useRecoilValue<boolean>(isEditModeState);
@@ -127,7 +126,7 @@ export function MainPage(): JSX.Element {
             }}
             width="100%"
           >
-            <div className="fixed top-0 right-0 w-4/5 flex-shrink-0 flex flex-wrap pt-1 bg-neutral-content z-[1]">
+            <div className="fixed top-0 right-0 w-11/12 flex-shrink-0 flex flex-wrap pt-1 bg-neutral-content z-[1]">
               <div className="ml-auto">
                 <ToggleViewButton />
               </div>

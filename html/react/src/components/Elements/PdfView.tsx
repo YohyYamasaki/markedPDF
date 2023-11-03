@@ -78,7 +78,7 @@ export function PdfView({isShow = false}: {isShow: boolean}): JSX.Element {
         </Document>
 
         {/* toolbox wrapper */}
-        <div className="fixed left-3/4 transform sm:-translate-x-1/2 flex top-14 sm:pt-1 sm:top-24">
+        <div className="fixed max-sm:right-0 sm:left-3/4 transform sm:-translate-x-1/2 flex top-14 sm:pt-1 sm:top-24">
           <div className="join shadow-xl">
             {/* zoom out */}
             <button className="btn btn-sm" type="button" onClick={zoomOut}>
