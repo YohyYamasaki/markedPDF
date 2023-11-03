@@ -1,30 +1,30 @@
-import { useRecoilState, useRecoilValue } from 'recoil'
-import { Navbar } from '@/components/Elements/Navbar'
-import { useSignupErrorState, useSignupInputState } from '@/recoil/recoilStates'
-import { type SignupInput } from '@/types/auth/SignupInput'
-import { FaCircleExclamation } from 'react-icons/fa6'
-import { type SignupError } from '@/types/auth/SignupError'
-import { useSignup } from '@/hooks/auth/useSignup'
-import SEO from '../Elements/SEO'
+import {useRecoilState, useRecoilValue} from "recoil";
+import {Navbar} from "@/components/Elements/Navbar";
+import {useSignupErrorState, useSignupInputState} from "@/recoil/recoilStates";
+import {type SignupInput} from "@/types/auth/SignupInput";
+import {FaCircleExclamation} from "react-icons/fa6";
+import {type SignupError} from "@/types/auth/SignupError";
+import {useSignup} from "@/hooks/auth/useSignup";
+import SEO from "../Elements/SEO";
 
-export function Signup (): JSX.Element {
+export function Signup(): JSX.Element {
   const [signupInput, setSignupInput] =
-    useRecoilState<SignupInput>(useSignupInputState)
-  const signupError = useRecoilValue<SignupError>(useSignupErrorState)
-  const signup = useSignup(signupInput)
+    useRecoilState<SignupInput>(useSignupInputState);
+  const signupError = useRecoilValue<SignupError>(useSignupErrorState);
+  const signup = useSignup(signupInput);
 
   // Input handlers
-  function handleInputChange (e: React.ChangeEvent<HTMLInputElement>): void {
-    const { name, value } = e.target
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>): void {
+    const {name, value} = e.target;
     setSignupInput((prevSignupInput) => ({
       ...prevSignupInput,
-      [name]: value
-    }))
+      [name]: value,
+    }));
   }
 
-  function onSubmit (e: React.FormEvent<HTMLFormElement>): void {
-    e.preventDefault()
-    void signup()
+  function onSubmit(e: React.FormEvent<HTMLFormElement>): void {
+    e.preventDefault();
+    void signup();
   }
 
   return (
@@ -37,18 +37,15 @@ export function Signup (): JSX.Element {
       />
 
       <Navbar />
-      <div className="relative flex flex-col justify-center h-screen overflow-hidden">
+      <div className="relative flex flex-col px-4 justify-center h-screen overflow-hidden">
         <div className="w-full p-6 m-auto bg-white rounded-md shadow-md ring-2 ring-gray-800/50 max-w-lg">
           <h1 className="text-3xl font-semibold text-center text-gray-700">
             Sign up
           </h1>
           {/* Error Message */}
-          {(
-            signupError.email.length > 0 ||
-            signupError.name.length > 0 ||
-            signupError.password.length > 0
-          )
-            ? (
+          {signupError.email.length > 0 ||
+          signupError.name.length > 0 ||
+          signupError.password.length > 0 ? (
             <div className="my-4 alert alert-error block">
               <div className="flex">
                 <FaCircleExclamation />
@@ -67,8 +64,7 @@ export function Signup (): JSX.Element {
                 )
               )}
             </div>
-              )
-            : null}
+          ) : null}
 
           <form className="space-y-4" onSubmit={onSubmit}>
             {/* Email input */}
@@ -137,5 +133,5 @@ export function Signup (): JSX.Element {
         </div>
       </div>
     </>
-  )
+  );
 }

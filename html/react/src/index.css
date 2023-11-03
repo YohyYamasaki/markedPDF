@@ -77,11 +77,11 @@ body {
 }
 
 .EasyMDEContainer .CodeMirror {
-  height: calc(100vh - (env(safe-area-inset-bottom) * 3) - 200px);
+  height: calc(100dvh - 200px);
 }
 
 .CodeMirror-scroll {
-  height: calc(100vh - (env(safe-area-inset-bottom) * 3) - 280px) !important;
+  height: calc(100dvh - 280px) !important;
   scrollbar-width: none;
 }
 
@@ -98,10 +98,16 @@ body {
   display: none;
 }
 
+/* PDF view */
+.react-pdf__message--no-data {
+  display: none;
+}
+
 /* slider */
 
 .slide-pane__header {
   background-color: #edf2f7;
+  max-height: 42px;
 }
 
 .slide-pane__content {

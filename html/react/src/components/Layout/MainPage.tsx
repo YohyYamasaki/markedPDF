@@ -2,7 +2,6 @@ import {useEffect, useState} from "react";
 import {Navbar} from "@/components/Elements/Navbar";
 import {useRecoilValue, useSetRecoilState} from "recoil";
 import {isDragOverState, isEditModeState} from "@/recoil/recoilStates";
-import {PdfView} from "@/components/Elements/PdfView";
 import {SimpleMarkdownEditor} from "../Elements/SimpleMarkdownEditor";
 import {HtmlView} from "@/components/Elements/HtmlView";
 import {ImageSelector} from "@/components/Elements/ImageSelector";
@@ -15,7 +14,8 @@ import {useGetDocSummaryList} from "@/hooks/document/useGetDocSummaryList";
 import {useGetUser} from "@/hooks/auth/useGetUser";
 import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
-import {NewPdfView} from "../Elements/NewPdfView";
+import {PdfView} from "@/components/Elements/PdfView";
+import {PiCaretDoubleLeftBold} from "react-icons/pi";
 
 export function MainPage(): JSX.Element {
   const setIsDragOver = useSetRecoilState<boolean>(isDragOverState);
@@ -86,14 +86,20 @@ export function MainPage(): JSX.Element {
         <div className="flex flex-grow overflow-scroll no-scrollbar">
           {/* Left Pane */}
           <div className="flex-shrink-0 w-full sm:w-1/2 overflow-hidden py-1 border-r border-neutral-content bg-neutral-content">
-            <ImageSelector />
-            <button
-              onClick={() => {
-                setSlidingState({isPaneOpen: true});
-              }}
-            >
-              open pane
-            </button>
+            <div className="flex items-center">
+              <ImageSelector />
+
+              {/* open slider button */}
+              <button
+                className="h-10 w-fit pl-4 pr-2 bg-primary rounded-bl-full rounded-tl-full text-white font-bold flex justify-center items-center ml-auto shadow-md sm:hidden"
+                onClick={() => {
+                  setSlidingState({isPaneOpen: true});
+                }}
+              >
+                <PiCaretDoubleLeftBold /> Compiled Doc
+              </button>
+            </div>
+
             <SimpleMarkdownEditor />
           </div>
 
@@ -107,12 +113,12 @@ export function MainPage(): JSX.Element {
               </div>
             </div>
             <HtmlView isShow={isEditMode} />
-            {/* <PdfView isShow={!isEditMode} /> */}
-            <NewPdfView isShow={!isEditMode} />
+            <PdfView isShow={!isEditMode} />
           </div>
 
+          {/* for smartphone */}
           <SlidingPane
-            className="mt-12 sm:hidden"
+            className="mt-14 sm:hidden bg-neutral-content"
             overlayClassName="some-custom-overlay-class"
             isOpen={slidingState.isPaneOpen}
             onRequestClose={() => {
@@ -121,9 +127,10 @@ export function MainPage(): JSX.Element {
             width="100%"
           >
             <div className="fixed top-0 right-0 w-4/5 flex-shrink-0 flex flex-wrap pt-1 bg-neutral-content z-[1]">
-              <ToggleViewButton />
-              {/* <ShowStyleSelectButton /> */}
-              <div className="ml-auto mx-1 mb-1">
+              <div className="ml-auto">
+                <ToggleViewButton />
+              </div>
+              <div className="mx-1 mb-1">
                 <ConverToPdfButton />
               </div>
             </div>
