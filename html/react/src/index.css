@@ -20,6 +20,19 @@ body {
   width: initial;
 }
 
+/* safari height fix */
+@supports (-webkit-touch-callout: none) {
+  .h-screen {
+    height: -webkit-fill-available;
+  }
+  .max-h-screen {
+    max-height: -webkit-fill-available;
+  }
+  .min-h-screen {
+    min-height: -webkit-fill-available;
+  }
+}
+
 /* easyMDE */
 .icon-latex {
   width: 30px;
@@ -64,11 +77,11 @@ body {
 }
 
 .EasyMDEContainer .CodeMirror {
-  height: calc(100vh - 200px);
+  height: calc(100dvh - 200px);
 }
 
 .CodeMirror-scroll {
-  height: calc(100vh - 280px) !important;
+  height: calc(100dvh - 280px) !important;
   scrollbar-width: none;
 }
 
@@ -83,4 +96,20 @@ body {
 
 .CodeMirror-scroll::-webkit-scrollbar {
   display: none;
+}
+
+/* PDF view */
+.react-pdf__message--no-data {
+  display: none;
+}
+
+/* slider */
+
+.slide-pane__header {
+  background-color: #edf2f7;
+  max-height: 42px;
+}
+
+.slide-pane__content {
+  padding: 0;
 }
