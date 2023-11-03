@@ -20,6 +20,19 @@ body {
   width: initial;
 }
 
+/* safari height fix */
+@supports (-webkit-touch-callout: none) {
+  .h-screen {
+    height: -webkit-fill-available;
+  }
+  .max-h-screen {
+    max-height: -webkit-fill-available;
+  }
+  .min-h-screen {
+    min-height: -webkit-fill-available;
+  }
+}
+
 /* easyMDE */
 .icon-latex {
   width: 30px;
@@ -64,11 +77,11 @@ body {
 }
 
 .EasyMDEContainer .CodeMirror {
-  height: calc(100vh - 200px);
+  height: calc(100vh - (env(safe-area-inset-bottom) * 3) - 200px);
 }
 
 .CodeMirror-scroll {
-  height: calc(100vh - 280px) !important;
+  height: calc(100vh - (env(safe-area-inset-bottom) * 3) - 280px) !important;
   scrollbar-width: none;
 }
 
