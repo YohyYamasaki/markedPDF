@@ -62,7 +62,7 @@ export function HtmlView({isShow = false}: {isShow: boolean}): JSX.Element {
     <>
       <div
         id="compiled-doc"
-        className={"bg-white sm:mt-10 p-4 " + (isShow ? "" : "hidden")}
+        className={"bg-white sm:mt-10 p-4 h-full " + (isShow ? "" : "hidden")}
       >
         {/* Parse and render the HTML string */}
         {parser.parse(htmlBody)}

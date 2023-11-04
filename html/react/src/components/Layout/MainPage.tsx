@@ -77,7 +77,7 @@ export function MainPage(): JSX.Element {
         type="website"
       />
       <div
-        className="flex flex-col h-screen max-h-screen"
+        className="flex flex-col h-screen max-h-screen bg-base-300"
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
