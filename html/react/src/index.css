@@ -34,6 +34,11 @@ body {
 }
 
 /* easyMDE */
+.editor-toolbar {
+  display: flex;
+  overflow-x: auto;
+}
+
 .icon-latex {
   width: 30px;
   height: 30px;
