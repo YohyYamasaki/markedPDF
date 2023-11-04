@@ -21,7 +21,9 @@ export function PdfView({isShow = false}: {isShow: boolean}): JSX.Element {
   const pdfUrl = useRecoilValue(pdfUrlState);
   const markdownDoc = useRecoilValue(markdownDocState);
   const [numPages, setNumPages] = useState<number>(0);
-  const [pageWidth, setPageWidth] = useState<number>(isMobile ? 350 : 600);
+  const [pageWidth, setPageWidth] = useState<number>(
+    isMobile ? window.innerWidth * 0.9 : window.innerWidth * 0.47
+  );
 
   function onDocumentLoadSuccess({numPages}: {numPages: any}): void {
     setNumPages(numPages);
@@ -32,7 +34,7 @@ export function PdfView({isShow = false}: {isShow: boolean}): JSX.Element {
   }
 
   function resetZoom(): void {
-    const desktopPdfWidth = window.innerWidth * 0.48;
+    const desktopPdfWidth = window.innerWidth * 0.47;
     const mobilePdfWidth = window.innerWidth * 0.9;
     setPageWidth(isMobile ? mobilePdfWidth : desktopPdfWidth);
   }
@@ -63,7 +65,11 @@ export function PdfView({isShow = false}: {isShow: boolean}): JSX.Element {
         }
       >
         {/* react pdf wrapper */}
-        <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
+        <Document
+          className="pb-28"
+          file={pdfUrl}
+          onLoadSuccess={onDocumentLoadSuccess}
+        >
           {/* display all pdf pages */}
           {Array.from(new Array(numPages), (_, index) => (
             <Page

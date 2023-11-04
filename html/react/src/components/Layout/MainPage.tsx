@@ -88,6 +88,9 @@ export function MainPage(): JSX.Element {
           <div className="flex-shrink-0 w-full sm:w-1/2 overflow-hidden py-1 border-r border-neutral-content bg-neutral-content">
             <div className="flex items-center">
               <ImageSelector />
+              <div className="ml-auto mr-1 max-sm:hidden">
+                <ConverToPdfButton />
+              </div>
 
               {/* open slider button */}
               <button
@@ -105,12 +108,9 @@ export function MainPage(): JSX.Element {
 
           {/* Right Pane */}
           <div className="hidden sm:block flex-shrink-0 w-1/2 overflow-y-auto">
-            <div className="absolute w-1/2 flex-shrink-0 flex flex-wrap pt-1 bg-neutral-content z-[1]">
+            <div className="absolute w-1/2 flex-shrink-0 flex gap-1 flex-wrap py-1 bg-neutral-content z-[1]">
               <ToggleViewButton />
               <ShowStyleSelectButton />
-              <div className="lg:ml-auto mx-1 mb-1">
-                <ConverToPdfButton />
-              </div>
             </div>
             <HtmlView isShow={isEditMode} />
             <PdfView isShow={!isEditMode} />

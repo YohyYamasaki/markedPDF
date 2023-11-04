@@ -87,6 +87,7 @@ body {
 
 .CodeMirror-scroll {
   height: calc(100dvh - 280px) !important;
+  min-height: 30vh !important;
   scrollbar-width: none;
 }
 
