@@ -1,23 +1,23 @@
-import puppeteer from 'puppeteer';
-import express from 'express';
-import bodyParser from 'body-parser';
-import createDOMPurify from 'dompurify';
-import { JSDOM } from 'jsdom';
-import Queue from 'queue';
-import dotenv from 'dotenv';
+import puppeteer from "puppeteer";
+import express from "express";
+import bodyParser from "body-parser";
+import createDOMPurify from "dompurify";
+import {JSDOM} from "jsdom";
+import Queue from "queue";
+import dotenv from "dotenv";
 
-const { window } = new JSDOM('');
+const {window} = new JSDOM("");
 const DOMPurify = createDOMPurify(window);
 
 const app = express();
 const port = 3000;
 // Set Body parser middleware
-app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.json({limit: "50mb"}));
 
 // @ts-ignore
 let browser: puppeteer.Browser | undefined;
 
-const q = new Queue({ results: [] });
+const q = new Queue({results: []});
 q.concurrency = 5; // Only 5 jobs will be processed at a time
 q.autostart = true; // Start processing jobs automatically
 
@@ -25,14 +25,14 @@ q.autostart = true; // Start processing jobs automatically
 async function generatePDF(dirtyHTML: string) {
   const env = dotenv.config().parsed;
 
-  console.log('Generating PDF...');
+  console.log("Generating PDF...");
   const page = await browser.newPage();
 
   await page.setUserAgent(env?.PDF_CONVERTER_CUSTOM_USER_AGENT);
 
   const cleanBody = DOMPurify.sanitize(dirtyHTML, {
-    USE_PROFILES: { html: true, mathMl: true },
-    ADD_TAGS: ['math', 'mrow', 'mi', 'mo', 'mn', 'msup', 'msub', 'mfrac'],
+    USE_PROFILES: {html: true, mathMl: true},
+    ADD_TAGS: ["math", "mrow", "mi", "mo", "mn", "msup", "msub", "mfrac"],
   });
 
   // add katex css and markdown styles
@@ -57,16 +57,19 @@ async function generatePDF(dirtyHTML: string) {
 
   // await page.on('console', (msg:any) => console.log('PAGE LOG:', msg.text()));
 
-  await page.setContent(cleanHTML, { waitUntil: 'networkidle0' });
+  await page.setContent(cleanHTML, {waitUntil: "networkidle0"});
 
   const pdf = await page.pdf({
-    format: 'A4',
+    format: "A4",
     margin: {
-      top: 50, bottom: 50, left: 50, right: 50,
+      top: 50,
+      bottom: 50,
+      left: 50,
+      right: 50,
     },
     printBackground: true,
     displayHeaderFooter: true,
-    headerTemplate: '<span></span>',
+    headerTemplate: "<span></span>",
     footerTemplate: `
     <div style="width: 100%; font-size: 9px; padding: 16px; position: relative;">
       <div style="position: absolute; right: 16px; top: 5px; font-family: Arial, sans-serif;"><span class="pageNumber"></span>/<span class="totalPages"></span></div>
@@ -81,46 +84,46 @@ async function generatePDF(dirtyHTML: string) {
 
 async function startBrowser() {
   browser = await puppeteer.launch({
-    headless: 'new',
+    headless: "new",
     args: [
-      '--font-render-hinting=none',
-      '--disable-features=IsolateOrigins',
-      '--disable-site-isolation-trials',
-      '--autoplay-policy=user-gesture-required',
-      '--disable-background-networking',
-      '--disable-background-timer-throttling',
-      '--disable-backgrounding-occluded-windows',
-      '--disable-breakpad',
-      '--disable-client-side-phishing-detection',
-      '--disable-component-update',
-      '--disable-default-apps',
-      '--disable-dev-shm-usage',
-      '--disable-domain-reliability',
-      '--disable-extensions',
-      '--disable-features=AudioServiceOutOfProcess',
-      '--disable-hang-monitor',
-      '--disable-ipc-flooding-protection',
-      '--disable-notifications',
-      '--disable-offer-store-unmasked-wallet-cards',
-      '--disable-popup-blocking',
-      '--disable-print-preview',
-      '--disable-prompt-on-repost',
-      '--disable-renderer-backgrounding',
-      '--disable-setuid-sandbox',
-      '--disable-speech-api',
-      '--disable-sync',
-      '--hide-scrollbars',
-      '--ignore-gpu-blacklist',
-      '--metrics-recording-only',
-      '--mute-audio',
-      '--no-default-browser-check',
-      '--no-first-run',
-      '--no-pings',
-      '--no-sandbox',
-      '--no-zygote',
-      '--password-store=basic',
-      '--use-gl=swiftshader',
-      '--use-mock-keychain',
+      "--font-render-hinting=none",
+      "--disable-features=IsolateOrigins",
+      "--disable-site-isolation-trials",
+      "--autoplay-policy=user-gesture-required",
+      "--disable-background-networking",
+      "--disable-background-timer-throttling",
+      "--disable-backgrounding-occluded-windows",
+      "--disable-breakpad",
+      "--disable-client-side-phishing-detection",
+      "--disable-component-update",
+      "--disable-default-apps",
+      "--disable-dev-shm-usage",
+      "--disable-domain-reliability",
+      "--disable-extensions",
+      "--disable-features=AudioServiceOutOfProcess",
+      "--disable-hang-monitor",
+      "--disable-ipc-flooding-protection",
+      "--disable-notifications",
+      "--disable-offer-store-unmasked-wallet-cards",
+      "--disable-popup-blocking",
+      "--disable-print-preview",
+      "--disable-prompt-on-repost",
+      "--disable-renderer-backgrounding",
+      "--disable-setuid-sandbox",
+      "--disable-speech-api",
+      "--disable-sync",
+      "--hide-scrollbars",
+      "--ignore-gpu-blacklist",
+      "--metrics-recording-only",
+      "--mute-audio",
+      "--no-default-browser-check",
+      "--no-first-run",
+      "--no-pings",
+      "--no-sandbox",
+      "--no-zygote",
+      "--password-store=basic",
+      "--use-gl=swiftshader",
+      "--use-mock-keychain",
     ],
   });
 }
@@ -131,16 +134,16 @@ async function startServer() {
 
   // Periodically restart the browser
   setInterval(async () => {
-    console.log('Restarting browser...');
+    console.log("Restarting browser...");
     await browser.close();
     await startBrowser();
   }, 3600000); // Restart every hour
 
-  app.post('/pdf-converter', async (req, res) => {
+  app.post("/pdf-converter", async (req, res) => {
     // API key authentication
-    const apiKey = req.header('Authorization');
+    const apiKey = req.header("Authorization");
     if (!apiKey || apiKey !== dotenv.config().parsed?.PDF_CONVERTER_API_KEY) {
-      res.status(401).json({ error: 'Unauthorized' });
+      res.status(401).json({error: "Unauthorized"});
     }
 
     const dirtyHTML = req.body.html;
@@ -149,12 +152,12 @@ async function startServer() {
     q.push(async (cb) => {
       try {
         const pdf = await generatePDF(dirtyHTML);
-        console.log('PDF generated successfully');
-        res.setHeader('Content-Type', 'application/pdf');
+        console.log("PDF generated successfully");
+        res.setHeader("Content-Type", "application/pdf");
         res.send(pdf);
       } catch (error) {
-        console.error('An error occurred:', error);
-        res.status(500).send('An error occurred while generating the PDF');
+        console.error("An error occurred:", error);
+        res.status(500).send("An error occurred while generating the PDF");
       }
       if (cb) cb(); // Notify queue that job is done
     });
@@ -167,5 +170,5 @@ async function startServer() {
 
 // Start the server
 startServer().catch((err) => {
-  console.error('Failed to start the server:', err);
+  console.error("Failed to start the server:", err);
 });
