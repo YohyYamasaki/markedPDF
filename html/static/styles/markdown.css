@@ -26,10 +26,6 @@
   border: none;
 }
 
-.markdown-body {
-  min-height: 90vh;
-}
-
 .katex-display > .katex {
   overflow-x: auto;
   overflow-y: hidden;
