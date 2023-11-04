@@ -69,7 +69,7 @@ jobs:
           cd ${{ secrets.SVR_DIR }}
           git pull origin main
           docker exec apache bash -c "cd laravel && composer install --no-dev"
-          docker exec apache bash -c "cd react && npm install"
-          docker exec apache bash -c "cd react && NODE_OPTIONS="--max-old-space-size=1024" npm run build"
-          cd puppeteer && npm install
+          docker exec apache bash -c "cd react && npm install --omit=dev"
+          docker exec apache bash -c "cd react && NODE_OPTIONS='--max-old-space-size=1024' npm run build"
+          cd puppeteer && npm install --omit=dev
           pm2 restart pdf-converter
