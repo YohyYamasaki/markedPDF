@@ -60,13 +60,13 @@ export function PdfView({isShow = false}: {isShow: boolean}): JSX.Element {
       <PdfLoadingOverlay />
       <div
         className={
-          "relative w-full h-[calc(100vh-90px)] mt-24 " +
+          "relative w-full h-[calc(100vh-90px)] pt-24 bg-neutral-200 " +
           (isShow ? "" : "hidden")
         }
       >
         {/* react pdf wrapper */}
         <Document
-          className="pb-28"
+          className="pb-28 bg-neutral-200"
           file={pdfUrl}
           onLoadSuccess={onDocumentLoadSuccess}
         >

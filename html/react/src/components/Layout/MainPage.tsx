@@ -107,7 +107,7 @@ export function MainPage(): JSX.Element {
           </div>
 
           {/* Right Pane */}
-          <div className="hidden sm:block flex-shrink-0 w-1/2 overflow-y-auto">
+          <div className="hidden sm:block flex-shrink-0 w-1/2 overflow-y-auto bg-white">
             <div className="absolute w-1/2 flex-shrink-0 flex gap-1 flex-wrap py-1 bg-neutral-content z-[1]">
               <ToggleViewButton />
               <ShowStyleSelectButton />
