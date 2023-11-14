@@ -40,9 +40,4 @@ $$
 
 - More flexible style editor
 - Syntax highlighting for block codes
-- Login by Google account
-
-If you have any feature requests or find any bugs, please let us know by filling out the form below!
-
-[markedPDF Feedback Form](https://forms.gle/X6MMszPA4pxmAZmm9)
-`
+`;
